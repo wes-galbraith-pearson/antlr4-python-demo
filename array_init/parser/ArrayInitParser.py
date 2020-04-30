@@ -3,10 +3,11 @@
 from antlr4 import *
 from io import StringIO
 import sys
+
 if sys.version_info[1] > 5:
-	from typing import TextIO
+    from typing import TextIO
 else:
-	from typing.io import TextIO
+    from typing.io import TextIO
 
 
 def serializedATN():
@@ -22,74 +23,69 @@ def serializedATN():
         return buf.getvalue()
 
 
-class ArrayInitParser ( Parser ):
+class ArrayInitParser(Parser):
 
     grammarFileName = "ArrayInit.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'{'", "','", "'}'" ]
+    literalNames = ["<INVALID>", "'{'", "','", "'}'"]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "INT", "WS" ]
+    symbolicNames = ["<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", "INT", "WS"]
 
     RULE_init = 0
     RULE_value = 1
 
-    ruleNames =  [ "init", "value" ]
+    ruleNames = ["init", "value"]
 
     EOF = Token.EOF
-    T__0=1
-    T__1=2
-    T__2=3
-    INT=4
-    WS=5
+    T__0 = 1
+    T__1 = 2
+    T__2 = 3
+    INT = 4
+    WS = 5
 
-    def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
+    def __init__(self, input: TokenStream, output: TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.8")
-        self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
+        self._interp = ParserATNSimulator(
+            self, self.atn, self.decisionsToDFA, self.sharedContextCache
+        )
         self._predicates = None
 
-
-
-
     class InitContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def value(self, i:int=None):
+        def value(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(ArrayInitParser.ValueContext)
             else:
-                return self.getTypedRuleContext(ArrayInitParser.ValueContext,i)
-
+                return self.getTypedRuleContext(ArrayInitParser.ValueContext, i)
 
         def getRuleIndex(self):
             return ArrayInitParser.RULE_init
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterInit" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterInit"):
                 listener.enterInit(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitInit" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitInit"):
                 listener.exitInit(self)
-
-
-
 
     def init(self):
 
         localctx = ArrayInitParser.InitContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_init)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 4
@@ -99,7 +95,7 @@ class ArrayInitParser ( Parser ):
             self.state = 10
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ArrayInitParser.T__1:
+            while _la == ArrayInitParser.T__1:
                 self.state = 6
                 self.match(ArrayInitParser.T__1)
                 self.state = 7
@@ -118,16 +114,15 @@ class ArrayInitParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ValueContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def init(self):
-            return self.getTypedRuleContext(ArrayInitParser.InitContext,0)
-
+            return self.getTypedRuleContext(ArrayInitParser.InitContext, 0)
 
         def INT(self):
             return self.getToken(ArrayInitParser.INT, 0)
@@ -135,16 +130,13 @@ class ArrayInitParser ( Parser ):
         def getRuleIndex(self):
             return ArrayInitParser.RULE_value
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterValue" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterValue"):
                 listener.enterValue(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitValue" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitValue"):
                 listener.exitValue(self)
-
-
-
 
     def value(self):
 
@@ -174,8 +166,3 @@ class ArrayInitParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
-
-
-
-
-

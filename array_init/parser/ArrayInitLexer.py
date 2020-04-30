@@ -5,7 +5,6 @@ from typing.io import TextIO
 import sys
 
 
-
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2\7")
@@ -28,7 +27,7 @@ class ArrayInitLexer(Lexer):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     T__0 = 1
     T__1 = 2
@@ -36,25 +35,23 @@ class ArrayInitLexer(Lexer):
     INT = 4
     WS = 5
 
-    channelNames = [ u"DEFAULT_TOKEN_CHANNEL", u"HIDDEN" ]
+    channelNames = ["DEFAULT_TOKEN_CHANNEL", "HIDDEN"]
 
-    modeNames = [ "DEFAULT_MODE" ]
+    modeNames = ["DEFAULT_MODE"]
 
-    literalNames = [ "<INVALID>",
-            "'{'", "','", "'}'" ]
+    literalNames = ["<INVALID>", "'{'", "','", "'}'"]
 
-    symbolicNames = [ "<INVALID>",
-            "INT", "WS" ]
+    symbolicNames = ["<INVALID>", "INT", "WS"]
 
-    ruleNames = [ "T__0", "T__1", "T__2", "INT", "WS" ]
+    ruleNames = ["T__0", "T__1", "T__2", "INT", "WS"]
 
     grammarFileName = "ArrayInit.g4"
 
-    def __init__(self, input=None, output:TextIO = sys.stdout):
+    def __init__(self, input=None, output: TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.8")
-        self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA, PredictionContextCache())
+        self._interp = LexerATNSimulator(
+            self, self.atn, self.decisionsToDFA, PredictionContextCache()
+        )
         self._actions = None
         self._predicates = None
-
-
